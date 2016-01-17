@@ -22,6 +22,6 @@ var debug = require('debug')('passport-mongo'),
 
 http.listen(process.env.PORT || 8000,process.env.IP, function() {
   console.log('I\'m Listening...');
-  // console.log(process.env.IP);
-  // console.log(process.env.PORT);
+  console.log(process.env.IP);
+  console.log(process.env.PORT);
 })
