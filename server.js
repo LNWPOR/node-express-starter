@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 
-var debug = require('debug')('passport-mongo'),
-    app = require('./app'),
-    http = require('http').Server(app),
-    io = require('socket.io')(http);
+var debug 		=	require('debug')('passport-mongo'),
+    app 		=	require('./server/app'),
+    http 		=	require('http').Server(app),
+    io 			= 	require('socket.io')(http),
+    express		=	require('express');
+
+// serve the public file
+app.use(express.static(__dirname + '/build'));
 
 // io.on('connection', function(socket){
 //   console.log('user connected');

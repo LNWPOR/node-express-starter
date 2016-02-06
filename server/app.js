@@ -48,7 +48,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use(express.static(__dirname + '/../client/build'));
+
 
 // require routes
 var routes = require('./routes/api');
