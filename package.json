@@ -4,7 +4,7 @@
   "description": "Starter project for node server",
   "scripts": {
     "dev": "nodemon --exec babel-node src/server/server.js",
-    "prestart": "babel src --out-dir dist",
+    "prestart": "babel src --out-dir dist --copy-files",
     "start": "node dist/server/server.js"
   },
   "author": "Teerapat Chaupetch <tclnwpor@gmail.com>",
