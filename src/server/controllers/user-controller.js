@@ -1,23 +1,23 @@
-var passport = require('passport'),
-    User = require('../models/user');
+import passport from 'passport';
+import User     from '../models/user';
 
-module.exports.getAll = function (req, res) {
-    User.find(function(err, users ) {
+export const getAll = (req, res) => {
+    User.find((err, users ) => {
         if (err)
             res.send(err)
         res.json(users);
     });
 }
 
-module.exports.getById = function (req, res) {
-    User.findOne({ _id: req.params.id }, function(err, user) {
+export const getById = (req, res) => {
+    User.findOne({ _id: req.params.id }, (err, user) => {
         if (err) return console.error(err);
         res.json(user);
     });
 }
 
-module.exports.register = function(req,res){
-    User.register(new User({ username: req.body.username }), req.body.password, function(err, account) {
+export const register = (req,res) => {
+    User.register(new User({ username: req.body.username }), req.body.password, (err, account) => {
         if (err) {
             return res.status(500).json({err: err})
         }
@@ -27,13 +27,13 @@ module.exports.register = function(req,res){
     });
 }
 
-module.exports.login = function(req,res,next){
-    passport.authenticate('local', function(err, user, info) {
+export const login = (req,res,next) => {
+    passport.authenticate('local', (err, user, info) => {
       if (err) { return next(err) }
       if (!user) {
         return res.status(401).json({err: info})
       }
-      req.logIn(user, function(err) {
+      req.logIn(user, (err) => {
         if (err) {
           return res.status(500).json({err: 'Could not log in user'})
         }
@@ -42,7 +42,7 @@ module.exports.login = function(req,res,next){
     })(req, res, next);
 }
 
-module.exports.logout = function(req,res){
+export const logout = (req,res) => {
     req.logout();
     res.status(200).json({status: 'Bye!'})
 }

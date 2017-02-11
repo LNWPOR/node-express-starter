@@ -1,24 +1,22 @@
-var passport         =   require('passport'),
-	  localStrategy    = 	 require('passport-local').Strategy,
-	  facebookStrategy =	 require('passport-facebook').Strategy;
+import passport                       from 'passport';
+import { Strategy as localStrategy }  from 'passport-local';
+//import { Strategy as facebookStrategy } from 'passport-facebook';
 
-var User	= 	require('../models/user'),
-	 auth    =	require('./auth');
-
+import User from '../models/user';
+import auth from './auth';
 
 // serialize and deserialize
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   	console.log('serializeUser: ' + user._id);
   	done(null, user._id);
 });
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser((id, done) => {
   	User.findById(id, function(err, user){
     	console.log(user);
       	if(!err) done(null, user);
       	else done(err, null);
     });
 });
-
 
 //local
 passport.use(new localStrategy(User.authenticate()));
@@ -29,8 +27,8 @@ passport.use(new localStrategy(User.authenticate()));
 //     clientSecret: auth.facebookAuth.clientSecret,
 //     callbackURL: auth.facebookAuth.callbackURL
 //   	},
-//   	function(accessToken, refreshToken, profile, done) {
-// 	    User.findOne({ oauthID: profile.id }, function(err, user) {
+//   	(accessToken, refreshToken, profile, done) => {
+// 	    User.findOne({ oauthID: profile.id }, (err, user) => {
 // 	      	if(err) {
 // 	        	console.log(err);  // handle errors!
 // 	      	}
@@ -43,7 +41,7 @@ passport.use(new localStrategy(User.authenticate()));
 // 	          		name: profile.displayName,
 // 	          		created: Date.now()
 // 	        	});
-// 	        	user.save(function(err) {
+// 	        	user.save((err) => {
 // 	          	if(err) {
 // 	            	console.log(err);  // handle errors!
 // 	          	} else {
@@ -57,4 +55,4 @@ passport.use(new localStrategy(User.authenticate()));
 //   	})
 // );
 
-module.exports = passport;
+export default passport;
