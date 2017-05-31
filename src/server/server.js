@@ -1,15 +1,13 @@
-import express     	from 'express';
-import { Server }	from 'http';
-import SocketIO 	from 'socket.io'; 
-import app         	from './app';
+import { Server } from 'http';
+import SocketIO from 'socket.io';
+import app from './app';
+import socketMain from './socket/socket.main';
 
-let server      = Server(app);
-let port 		= process.env.PORT || 8000;
-let ip 			= process.env.IP;
-
-//socket.io
-let io          = new SocketIO(server);
-import socketMain from './socket/socket.main.js';
+const server = Server(app);
+const port = process.env.PORT || 8000;
+const ip = process.env.IP;
+// socket.io
+const io = new SocketIO(server);
 socketMain(io);
 
 server.listen(port, ip, () => {

@@ -1,27 +1,27 @@
-import passport                       from 'passport';
-import { Strategy as localStrategy }  from 'passport-local';
-//import { Strategy as facebookStrategy } from 'passport-facebook';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+// import { Strategy as facebookStrategy } from 'passport-facebook';
 
 import User from '../models/user';
 import auth from './auth';
 
 // serialize and deserialize
 passport.serializeUser((user, done) => {
-  	console.log('serializeUser: ' + user._id);
-  	done(null, user._id);
+  console.log(`serializeUser: ${user._id}`);
+  done(null, user._id);
 });
 passport.deserializeUser((id, done) => {
-  	User.findById(id, function(err, user){
-    	console.log(user);
-      	if(!err) done(null, user);
-      	else done(err, null);
-    });
+  User.findById(id, (err, user) => {
+    console.log(user);
+    if (!err) done(null, user);
+    else done(err, null);
+  });
 });
 
-//local
-passport.use(new localStrategy(User.authenticate()));
+// local
+passport.use(new LocalStrategy(User.authenticate()));
 
-//facebook
+// facebook
 // passport.use(new facebookStrategy({
 //     clientID: auth.facebookAuth.clientID,
 //     clientSecret: auth.facebookAuth.clientSecret,

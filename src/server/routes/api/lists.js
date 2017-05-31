@@ -1,6 +1,7 @@
 import express from 'express';
 import * as listController from '../../controllers/list-controller';
-let lists = express.Router();
+
+const lists = express.Router();
 
 lists.route('/')
   .get(listController.getAll)
